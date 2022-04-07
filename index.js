@@ -46,7 +46,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		return;
 	}
 
-	const log_message = `Reaction ${reaction.emoji} (Count: ${reaction.count}) added by <@!${user.id}> (**${user.tag}**, \`${user.id}\`) in ${reaction.message.channel} to ${reaction.message.url}`; // Count has to be updated. For uncached Messages the number will be NULL.
+	const log_message = `Reaction ${reaction.emoji} (Count: ${reaction.count}) added by <@!${user.id}> (**${user.tag}**, \`${user.id}\`) in ${reaction.message.channel} to <${reaction.message.url}>`; // Count has to be updated. For uncached Messages the number will be NULL.
 	
 	if(process.env.WEBHOOK_URL) {
 	//	const myWebHook = new Discord.WebhookClient({ url: process.env.WEBHOOK_URL});

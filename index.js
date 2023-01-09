@@ -28,28 +28,37 @@ client.on('messageReactionAdd', async (reaction, user) => {
 	}
 	
 	if (guild != reaction.message.guildId) {
-	//	console.log(`Reaction from another Guild: ${reaction.message.guildId}`);
+		// Do nothing
+		// console.log(`Reaction from another Guild: ${reaction.message.guildId}`);
 		return;
 	}
 
 	if (user.bot) {
-		console.log(`<User is a Bot.>`);
+		// Do nothing
+		// console.log(`<User is a Bot.>`);
 		return;
 	}
 
 	if (ignore_channels.find(c => c === reaction.message.channelId)) {
-	//	console.log(`Channel ${reaction.message.channelId} will be ignored!`);
+		// Do nothing
+		// console.log(`Channel ${reaction.message.channelId} will be ignored!`);
 		return;
 	}
 	if (ignore_reactions.find(r => r === reaction.emoji.name)) {
-	//	console.log(`Reaction ${reaction.emoji.name} will be ignored!`);
+		// Do nothing
+		// console.log(`Reaction ${reaction.emoji.name} will be ignored!`);
 		return;
 	}
 
-	const log_message = `Reaction ${reaction.emoji} (Count: ${reaction.count}) added by <@!${user.id}> (**${user.tag}**, \`${user.id}\`) in ${reaction.message.channel} to <${reaction.message.url}>`; // Count has to be updated. For uncached Messages the number will be NULL.
-	
+	let log_message = "";
+	if(reaction.count != null) {
+		log_message = `Reaction ${reaction.emoji} (Count: ${reaction.count}) added by <@!${user.id}> (**${user.tag}**, \`${user.id}\`) in ${reaction.message.channel} to <${reaction.message.url}>`; 
+	}
+	else {
+		log_message = `Reaction ${reaction.emoji} (Count: *Not Cached*) added by <@!${user.id}> (**${user.tag}**, \`${user.id}\`) in ${reaction.message.channel} to <${reaction.message.url}>`; 
+	}
+		
 	if(process.env.WEBHOOK_URL) {
-	//	const myWebHook = new Discord.WebhookClient({ url: process.env.WEBHOOK_URL});
 		myWebHook.send({ 
 			content: log_message,
 			allowedMentions: { parse: [] }

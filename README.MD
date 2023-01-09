@@ -1,5 +1,5 @@
 # Reactor
-A Discord Bot which tracks reactions on messages in the server.
+A Discord Bot which tracks reactions on messages in the server. This Bot is for Selfhosters only.
 
 ## Configuration
 * Rename the file `.env.example` to `.env`
